@@ -49,6 +49,8 @@ namespace KeePassHttp
             SortByTitleRadioButton.Checked = !_config.SortResultByUsername;
             portNumber.Value = _config.ListenerPort;
             hostName.Text = _config.ListenerHost;
+            pleasantPasswordFolder.Text = _config.PleasantPasswordFolder;
+            
 
             this.returnStringFieldsCheckbox_CheckedChanged(null, EventArgs.Empty);
         }
@@ -68,10 +70,11 @@ namespace KeePassHttp
             _config.SortResultByUsername = SortByUsernameRadioButton.Checked;
             _config.ListenerPort = (int)portNumber.Value;
             _config.ListenerHost = hostName.Text;
+            _config.PleasantPasswordFolder = pleasantPasswordFolder.Text;
             if (_restartRequired)
             {
                 MessageBox.Show(
-                    "You have successfully changed the port number and/or the host name.\nA restart of KeePass is required!\n\nPlease restart KeePass now.",
+                    "You have successfully changed the port number and/or the host name and/or the Pleasant Password Folder.\nA restart of KeePass is required!\n\nPlease restart KeePass now.",
                     "Restart required!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
@@ -214,9 +217,14 @@ namespace KeePassHttp
             SetRestartRequired();
         }
 
+        private void pleasantPasswordFolder_TextChanged(object sender, EventArgs e)
+        {
+            SetRestartRequired();
+        }
+
         private void SetRestartRequired()
         {
-            _restartRequired = (_config.ListenerPort != portNumber.Value) || (_config.ListenerHost != hostName.Text);
+            _restartRequired = (_config.ListenerPort != portNumber.Value) || (_config.ListenerHost != hostName.Text) || (_config.PleasantPasswordFolder != pleasantPasswordFolder.Text);
         }
 
         private void returnStringFieldsCheckbox_CheckedChanged(object sender, EventArgs e)

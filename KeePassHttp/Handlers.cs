@@ -18,7 +18,6 @@ using KeePass.UI;
 using KeePass;
 using KeePassLib.Cryptography.PasswordGenerator;
 using KeePassLib.Cryptography;
-using KeePass.Util.Spr;
 
 namespace KeePassHttp {
     public sealed partial class KeePassHttpExt : Plugin
@@ -478,10 +477,8 @@ namespace KeePassHttp {
 
         private ResponseEntry PrepareElementForResponseEntries(ConfigOpt configOpt, PwEntryDatabase entryDatabase)
         {
-            SprContext ctx = new SprContext(entryDatabase.entry, entryDatabase.database, SprCompileFlags.All, false, false);
-
             var name = entryDatabase.entry.Strings.ReadSafe(PwDefs.TitleField);
-            var loginpass = GetUserPass(entryDatabase, ctx);
+            var loginpass = GetUserPass(entryDatabase);
             var login = loginpass[0];
             var passwd = loginpass[1];
             var uuid = entryDatabase.entry.Uuid.ToHexString();
@@ -493,10 +490,6 @@ namespace KeePassHttp {
                 foreach (var sf in entryDatabase.entry.Strings)
                 {
                     var sfValue = entryDatabase.entry.Strings.ReadSafe(sf.Key);
-                    
-                    // follow references
-                    sfValue = SprEngine.Compile(sfValue, ctx);
-
                     if (configOpt.ReturnStringFieldsWithKphOnly)
                     {
                         if (sf.Key.StartsWith("KPH: "))
@@ -781,12 +774,21 @@ namespace KeePassHttp {
             if (r.Realm != null)
                 realm = CryptoTransform(r.Realm, true, false, aes, CMode.DECRYPT);
 
+
+            var configOpt = new ConfigOpt(this.host.CustomConfig);
+            
             var root = host.Database.RootGroup;
-            var group = root.FindCreateGroup(KEEPASSHTTP_GROUP_NAME, false);
+            var loc = root;
+            if ( !String.IsNullOrEmpty(configOpt.PleasantPasswordFolder) ) {
+                var priv = root.FindCreateGroup("Private Folders", false);
+                loc = priv.FindCreateGroup(configOpt.PleasantPasswordFolder, false);
+            }
+
+            var group = loc.FindCreateGroup(KEEPASSHTTP_GROUP_NAME, false);
             if (group == null)
             {
                 group = new PwGroup(true, true, KEEPASSHTTP_GROUP_NAME, PwIcon.WorldComputer);
-                root.AddGroup(group, true);
+                loc.AddGroup(group, true);
                 UpdateUI(null);
             }
 

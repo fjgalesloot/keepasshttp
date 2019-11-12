@@ -90,15 +90,22 @@ namespace KeePassHttp
 
         private PwEntry GetConfigEntry(bool create)
         {
+            var configOpt = new ConfigOpt(this.host.CustomConfig);
+
             var root = host.Database.RootGroup;
-            var uuid = new PwUuid(KEEPASSHTTP_UUID);
-            var entry = root.FindEntry(uuid, false);
+            var loc = root;
+            if ( !String.IsNullOrEmpty(configOpt.PleasantPasswordFolder) ) {
+                var priv = root.FindCreateGroup("Private Folders", false);
+                loc = priv.FindCreateGroup(configOpt.PleasantPasswordFolder, false);
+            }
+            //var uuid = new PwUuid(KEEPASSHTTP_UUID);
+            var entry = loc.FindEntry(KEEPASSHTTP_NAME, false);
             if (entry == null && create)
             {
                 entry = new PwEntry(false, true);
                 entry.Uuid = uuid;
                 entry.Strings.Set(PwDefs.TitleField, new ProtectedString(false, KEEPASSHTTP_NAME));
-                root.AddEntry(entry, true);
+                loc.AddEntry(entry, true);
                 UpdateUI(null);
             }
             return entry;
@@ -410,13 +417,6 @@ namespace KeePassHttp
             // follow references
             SprContext ctx = new SprContext(entryDatabase.entry, entryDatabase.database,
                     SprCompileFlags.All, false, false);
-
-            return GetUserPass(entryDatabase, ctx);
-        }
-
-        internal string[] GetUserPass(PwEntryDatabase entryDatabase, SprContext ctx)
-        {
-            // follow references
             string user = SprEngine.Compile(
                     entryDatabase.entry.Strings.ReadSafe(PwDefs.UserNameField), ctx);
             string pass = SprEngine.Compile(

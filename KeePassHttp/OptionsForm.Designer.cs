@@ -44,7 +44,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.returnStringFieldsWithKphOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.hostName = new System.Windows.Forms.TextBox();
+            this.pleasantPasswordFolder = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,7 +73,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(313, 508);
+            this.cancelButton.Location = new System.Drawing.Point(313, 563);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(88, 28);
             this.cancelButton.TabIndex = 2;
@@ -81,7 +85,7 @@
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.okButton.Location = new System.Drawing.Point(219, 508);
+            this.okButton.Location = new System.Drawing.Point(219, 563);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(88, 28);
             this.okButton.TabIndex = 1;
@@ -99,7 +103,7 @@
             this.tabControl1.Location = new System.Drawing.Point(1, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(410, 498);
+            this.tabControl1.Size = new System.Drawing.Size(410, 553);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -116,7 +120,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(402, 497);
+            this.tabPage1.Size = new System.Drawing.Size(402, 552);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -223,8 +227,12 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.returnStringFieldsWithKphOnlyCheckBox);
-            this.tabPage2.Controls.Add(this.hostName);
+            this.tabPage2.Controls.Add(this.pleasantPasswordFolder);            
+            this.tabPage2.Controls.Add(this.hostName);            
             this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label7);
@@ -242,7 +250,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(402, 472);
+            this.tabPage2.Size = new System.Drawing.Size(402, 553);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -253,10 +261,46 @@
             this.returnStringFieldsWithKphOnlyCheckBox.Location = new System.Drawing.Point(55, 215);
             this.returnStringFieldsWithKphOnlyCheckBox.Name = "returnStringFieldsWithKphOnlyCheckBox";
             this.returnStringFieldsWithKphOnlyCheckBox.Size = new System.Drawing.Size(300, 30);
-            this.returnStringFieldsWithKphOnlyCheckBox.TabIndex = 31;
+            this.returnStringFieldsWithKphOnlyCheckBox.TabIndex = 32;
             this.returnStringFieldsWithKphOnlyCheckBox.Text = "Only return advanced string fields which start with \"KPH: \"\r\n(Mind the space afte" +
     "r KPH:)";
             this.returnStringFieldsWithKphOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // pleasantPasswordFolder
+            // 
+            this.pleasantPasswordFolder.Location = new System.Drawing.Point(48, 499);
+            this.pleasantPasswordFolder.Name = "pleasantPasswordFolder";
+            this.pleasantPasswordFolder.Size = new System.Drawing.Size(103, 20);
+            this.pleasantPasswordFolder.TabIndex = 32;
+            this.pleasantPasswordFolder.Text = "";
+            this.pleasantPasswordFolder.TextChanged += new System.EventHandler(this.pleasantPasswordFolder_TextChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 464);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(375, 26);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "When using Pleasant Password server the KeepassHTTPSettings have to \r\nU be saved in a Private Folder. \r\n";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(157, 499);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(375, 13);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Fill in your Pleasant Password server Username";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 501);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(375, 13);
+            this.label13.TabIndex = 33;
+            this.label13.Text = "User:";
             // 
             // hostName
             // 
@@ -436,7 +480,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(411, 545);
+            this.ClientSize = new System.Drawing.Size(411, 600);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
@@ -487,8 +531,13 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox hostName;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox returnStringFieldsWithKphOnlyCheckBox;
+        private System.Windows.Forms.TextBox pleasantPasswordFolder;
+        
     }
 }
