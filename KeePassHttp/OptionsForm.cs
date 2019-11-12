@@ -50,6 +50,7 @@ namespace KeePassHttp
             portNumber.Value = _config.ListenerPort;
             hostName.Text = _config.ListenerHost;
             pleasantPasswordFolder.Text = _config.PleasantPasswordFolder;
+            pleasantPasswordUUID.Text = _config.PleasantPasswordUUID;
             
 
             this.returnStringFieldsCheckbox_CheckedChanged(null, EventArgs.Empty);
@@ -71,6 +72,7 @@ namespace KeePassHttp
             _config.ListenerPort = (int)portNumber.Value;
             _config.ListenerHost = hostName.Text;
             _config.PleasantPasswordFolder = pleasantPasswordFolder.Text;
+            _config.PleasantPasswordUUID = pleasantPasswordUUID.Text;
             if (_restartRequired)
             {
                 MessageBox.Show(
@@ -221,10 +223,15 @@ namespace KeePassHttp
         {
             SetRestartRequired();
         }
+        private void pleasantPasswordUUID_TextChanged(object sender, EventArgs e)
+        {
+            SetRestartRequired();
+        }
 
         private void SetRestartRequired()
         {
-            _restartRequired = (_config.ListenerPort != portNumber.Value) || (_config.ListenerHost != hostName.Text) || (_config.PleasantPasswordFolder != pleasantPasswordFolder.Text);
+            _restartRequired = (_config.ListenerPort != portNumber.Value) || (_config.ListenerHost != hostName.Text) ||
+                (_config.PleasantPasswordFolder != pleasantPasswordFolder.Text) || (_config.PleasantPasswordUUID != pleasantPasswordUUID.Text);;
         }
 
         private void returnStringFieldsCheckbox_CheckedChanged(object sender, EventArgs e)

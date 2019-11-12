@@ -97,9 +97,16 @@ namespace KeePassHttp
             if ( !String.IsNullOrEmpty(configOpt.PleasantPasswordFolder) ) {
                 var priv = root.FindCreateGroup("Private Folders", false);
                 loc = priv.FindCreateGroup(configOpt.PleasantPasswordFolder, false);
+            }            
+            string UUIDstring = configOpt.PleasantPasswordUUID;
+            byte[] uuidByte = new byte[UUIDstring.Length/2];
+            for ( int i = 0; i < UUIDstring.Length / 2; i++ ) {
+                uuidByte[i] = byte.Parse(UUIDstring.Substring(i*2,2), System.Globalization.NumberStyles.HexNumber);
             }
-            //var uuid = new PwUuid(KEEPASSHTTP_UUID);
-            var entry = loc.FindEntry(KEEPASSHTTP_NAME, false);
+
+
+            var uuid = new PwUuid(uuidByte);
+            var entry = loc.FindEntry(uuid, false);
             if (entry == null && create)
             {
                 entry = new PwEntry(false, true);

@@ -18,6 +18,8 @@ namespace KeePassHttp
         const string SortResultByUsernameKey = "KeePassHttp_SortResultByUsername";
         const string ListenerPortKey = "KeePassHttp_ListenerPort";
         const string ListenerHostKey = "KeePassHttp_ListenerHost";
+        const string PleasantPasswordFolderKey = "KeePassHttp_PleasantPasswordFolder";
+        const string PleasantPasswordUUIDKey = "KeePassHttp_PleasantPasswordUUID";
 
         public ConfigOpt(AceCustomConfig config)
         {
@@ -99,6 +101,19 @@ namespace KeePassHttp
         {
             get { return _config.GetString(ListenerHostKey, KeePassHttpExt.DEFAULT_HOST); }
             set { _config.SetString(ListenerHostKey, value); }
+        }
+
+        public string PleasantPasswordFolder
+        {
+            get { return _config.GetString(PleasantPasswordFolderKey, "username"); }
+            set { _config.SetString(PleasantPasswordFolderKey, value); }
+
+        }
+        public string PleasantPasswordUUID
+        {
+            get { return _config.GetString(PleasantPasswordUUIDKey, "username"); }
+            set { _config.SetString(PleasantPasswordUUIDKey, value); }
+
         }
     }
 }
